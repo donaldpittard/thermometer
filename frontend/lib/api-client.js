@@ -1,0 +1,1 @@
+export const fetchWeather = ({latitude, longitude}) => fetch(`/api/weather/latitude/${latitude}/longitude/${longitude}`);
