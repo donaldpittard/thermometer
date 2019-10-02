@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css?family=Overpass&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Lexend+Exa&display=swap');
 
 html, body {
     margin: 0;
     padding: 0;
     height: 100%;
-    font-family: 'Overpass';
+    font-family: 'Lexend Exa';
 }
 
 #root {

@@ -14,7 +14,7 @@ const Bar = props => {
 
     return (
         <div className={className}>
-            <Temp temp={temp} />
+            <Temp temp={temp} unit={'f'} />
         </div>
     );
 };

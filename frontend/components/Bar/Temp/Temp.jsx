@@ -2,7 +2,7 @@ import React from 'react';
 import style from './Temp.css';
 
 const Temp = props => {
-    const {temp} = props;
+    const {temp,unit} = props;
 
     if (!temp) {
         return '';
@@ -11,7 +11,7 @@ const Temp = props => {
     return (
         <span className="temp">
             {temp}
-            <span>&deg;</span>
+            <span className="temp__degree">&deg;{unit}</span>
         </span>
     )
 };
