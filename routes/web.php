@@ -65,5 +65,10 @@ $router->get('/api/weather/latitude/{latitude}/longitude/{longitude}/unit/{unit}
 
     $response = json_decode($sampleApiResponse);
 
-    return response()->json($response);
+    return response()->json([
+        'data' => [
+            'temp' => 86,
+            'code' => 200
+        ],
+    ]);
 });

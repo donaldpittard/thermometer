@@ -14,3 +14,7 @@ export const units = {
     fahrenheit: 'f',
     celsius: 'c'
 };
+
+export const isBetween = (min, max, num) => min < num && num < max;
+
+export const toFahrenheit = celsiusTemp => parseInt((celsiusTemp * 9/5) + 32);
