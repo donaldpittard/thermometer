@@ -5,7 +5,10 @@ const barClass = number => `bar bar--${number}`;
 
 const Bar = ({number, children}) => {
     return (
-        <div className={children ? barClass(number) + ' bar--selected' : barClass(number)}>
+        <div className={children 
+            ? barClass(number) + ' bar--selected' 
+            : barClass(number)}
+        >
             {children}
         </div>
     );

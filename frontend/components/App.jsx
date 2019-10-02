@@ -40,13 +40,21 @@ class App extends Component {
     }
   }
 
+  temperatureIsInBar(temperature, barNumber) {
+      return barNumber === 2;
+  }
+
   render() {
     const bars = range(this.state.numBars).map(num => {
+        const {temp, unit} = this.state;
+
         return (<Bar 
             key={uuidv1()} 
             number={num}
         >
-            {num === 2 ? <Temperature temp={this.state.temp} unit={this.state.unit} /> : null}
+            {this.temperatureIsInBar(temp, num) 
+                ? <Temperature temp={temp} unit={unit} /> 
+                : null}
         </Bar>);
     });
 
