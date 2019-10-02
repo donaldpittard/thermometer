@@ -5,6 +5,7 @@
 
 .bar--selected {
     height: 17.5%;
+    text-align: center;
 }
 
 .bar--0 {
