@@ -9,6 +9,7 @@ import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Temperature from './Temperature/Temperature.jsx';
 import Icon from './Icon/Icon.jsx';
+import SliderIcon from './SliderIcon/SliderIcon.jsx';
 
 class App extends Component {
   constructor(props) {
@@ -26,6 +27,10 @@ class App extends Component {
     toast.error(err, {
         position: toast.POSITION.TOP_CENTER
     });
+  }
+
+  handleSliderClick() {
+    alert('hey');
   }
 
   async componentDidMount() {
@@ -87,6 +92,7 @@ class App extends Component {
                     ? <React.Fragment>
                         <Temperature temp={temp} unit={unit} />
                         <Icon weatherCode={this.state.weatherCode} />
+                        <SliderIcon onClick={this.handleSliderClick} />
                     </React.Fragment>
                     : null}
             </Bar>
