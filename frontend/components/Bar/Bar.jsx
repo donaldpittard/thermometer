@@ -1,18 +1,12 @@
 import React from 'react';
-import styles from './Bar.css'
-import Temp from './Temp/Temp.jsx';
+import './Bar.css'
 
-const Bar = props => {
-    const {number, temp, unit} = props;
-    let className = `bar bar--${number}`;
+const barClass = number => `bar bar--${number}`;
 
-    if (number === 2) {
-        className += ` bar--selected`;
-    }
-
+const Bar = ({number, children}) => {
     return (
-        <div className={className}>
-            <Temp temp={temp} unit={unit} />
+        <div className={children ? barClass(number) + ' bar--selected' : barClass(number)}>
+            {children}
         </div>
     );
 };

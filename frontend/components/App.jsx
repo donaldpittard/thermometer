@@ -1,26 +1,23 @@
 import React, { Component } from 'react';
 import Bar from './Bar/Bar.jsx';
 import uuidv1 from 'uuid/v1';
-import { getPosition, range } from '../lib/utils';
+import { getPosition, range, units } from '../lib/utils';
 import { fetchWeather } from '../lib/api-client';
 import '@csstools/normalize.css';
-import styles from './App.css';
+import './App.css';
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import Temperature from './Temperature/Temperature.jsx';
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      weather: {},
+      temp: null,
       numBars: 12,
+      unit: units.fahrenheit
     };
-  }
-
-  notify() {
-      toast('Wow so easy, yea right :(');
   }
 
   handleError(err='An error has occurred') {
@@ -35,7 +32,7 @@ class App extends Component {
         const weather = await fetchWeather(pos);
 
         this.setState({
-            weather: weather.data[0]
+            temp: parseInt(weather.data[0].temp)
         });
     } catch (err) {
         this.handleError(err.message);
@@ -45,7 +42,12 @@ class App extends Component {
 
   render() {
     const bars = range(this.state.numBars).map(num => {
-        return <Bar key={uuidv1()} number={num} />;
+        return (<Bar 
+            key={uuidv1()} 
+            number={num}
+        >
+            {num === 2 ? <Temperature temp={this.state.temp} unit={this.state.unit} /> : null}
+        </Bar>);
     });
 
     return (

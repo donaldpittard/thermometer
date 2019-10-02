@@ -9,3 +9,8 @@ export const getPosition = () => {
 export const range = (to) => {
     return [...Array(to).keys()];
 };
+
+export const units = {
+    fahrenheit: 'f',
+    celsius: 'c'
+};

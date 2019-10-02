@@ -15,7 +15,7 @@ $router->get('/', function () use ($router) {
     return view('home')->with('title', 'Local Weather App');
 });
 
-$router->get('/api/weather/latitude/{latitude}/longitude/{longitude}', function ($latitude, $longitude) {
+$router->get('/api/weather/latitude/{latitude}/longitude/{longitude}/unit/{unit}', function ($latitude, $longitude, $unit) {
     $sampleApiResponse = '{  
         "data":[  
            {  

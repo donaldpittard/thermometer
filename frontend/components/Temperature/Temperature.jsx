@@ -1,10 +1,11 @@
 import React from 'react';
-import style from './Temp.css';
+import './Temperature.css';
+import {units} from '../../lib/utils';
 
-const Temp = props => {
-    const {temp,unit} = props;
+const Temperature = props => {
+    const {temp, unit=units.fahrenheit} = props;
 
-    if (!temp) {
+    if (temp === null) {
         return '';
     }
 
@@ -16,4 +17,4 @@ const Temp = props => {
     )
 };
 
-export default Temp;
+export default Temperature;
