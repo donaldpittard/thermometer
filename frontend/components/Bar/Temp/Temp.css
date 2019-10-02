@@ -1,0 +1,9 @@
+.temp {
+    color: #FFF;
+    font-size: 16em;
+    padding-left: 10%;
+}
+
+.temp__degree {
+    content: "\00B0";
+}

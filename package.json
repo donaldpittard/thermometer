@@ -27,7 +27,9 @@
     "webpack-cli": "^3.3.9"
   },
   "dependencies": {
+    "@csstools/normalize.css": "^10.1.0",
     "react": "^16.10.1",
-    "react-dom": "^16.10.1"
+    "react-dom": "^16.10.1",
+    "uuid": "^3.3.3"
   }
 }

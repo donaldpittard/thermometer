@@ -28,11 +28,16 @@
         ]
     },
     "scripts": {
+        "build-js": "npm install & npm run build",
+        "start": [
+            "@build-js",
+            "php -S localhost:8080 -t ./public/"
+        ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "post-install-cmd": [
-            "npm install & npm run build"
+            "@build-js"
         ]
     },
     "config": {
