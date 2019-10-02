@@ -27,7 +27,13 @@
     "webpack-cli": "^3.3.9"
   },
   "dependencies": {
+    "@csstools/normalize.css": "^10.1.0",
+    "bootstrap": "^4.3.1",
     "react": "^16.10.1",
-    "react-dom": "^16.10.1"
+    "react-bootstrap": "^1.0.0-beta.12",
+    "react-dom": "^16.10.1",
+    "react-toastify": "^5.4.0",
+    "uuid": "^3.3.3",
+    "weather-icons-react": "^1.2.0"
   }
 }

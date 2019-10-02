@@ -1,0 +1,10 @@
+.temp {
+    color: #FFF;
+    font-size: 16em;
+    padding-left: 10%;
+}
+
+.temp__degree {
+    vertical-align: super;
+    font-size: 100px;
+}

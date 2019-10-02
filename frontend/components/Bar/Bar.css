@@ -1,0 +1,61 @@
+.bar {
+    height: 7.5%;
+    width: 100%;
+}
+
+.bar--selected {
+    height: 17.5%;
+    text-align: center;
+}
+
+.bar--0 {
+    background-color: #ff6735;
+}
+
+.bar--1 {
+    background-color: #ff8037;
+}
+
+.bar--2 {
+    background-color: #ff9839;
+}
+
+.bar--3 {
+    background-color: #ffcc56
+}
+
+.bar--4 {
+    background-color: #ffe57a;
+}
+
+.bar--5 {
+    background-color: #fff7b9;
+}
+
+.bar--6 {
+    background-color: #ecfbff;
+}
+
+.bar--7 {
+    background-color: #cef2ff;
+}
+
+.bar--8 {
+    background-color: #75e9ff;
+}
+
+.bar--9 {
+    background-color: #03cbfe;
+}
+
+.bar--10 {
+    background-color: #00bdff;
+}
+
+.bar--11 {
+    background-color: #009dfe;
+}
+
+.bar--12 {
+    background-color: #023d65;
+}
