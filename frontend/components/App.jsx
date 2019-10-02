@@ -5,23 +5,42 @@ import { getPosition, range } from '../lib/utils';
 import { fetchWeather } from '../lib/api-client';
 import '@csstools/normalize.css';
 import styles from './App.css';
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 class App extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       weather: {},
       numBars: 12,
     };
   }
 
-  async componentDidMount() {
-    const pos = await getPosition();
-    const weather = await fetchWeather(pos);
+  notify() {
+      toast('Wow so easy, yea right :(');
+  }
 
-    this.setState({
-      weather,
+  handleError(err='An error has occurred') {
+    toast.error(err, {
+        position: toast.POSITION.TOP_CENTER
     });
+  }
+
+  async componentDidMount() {
+    try {
+        const pos = await getPosition();
+        const weather = await fetchWeather(pos);
+
+        this.setState({
+            weather: weather.data[0]
+        });
+    } catch (err) {
+        this.handleError(err.message);
+        return;
+    }
   }
 
   render() {
@@ -31,6 +50,7 @@ class App extends Component {
 
     return (
       <div className="thermometer">
+        <ToastContainer />
         {bars}
       </div>
     );

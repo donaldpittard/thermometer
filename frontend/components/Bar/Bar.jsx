@@ -3,18 +3,16 @@ import styles from './Bar.css'
 import Temp from './Temp/Temp.jsx';
 
 const Bar = props => {
-    const {number} = props;
+    const {number, temp, unit} = props;
     let className = `bar bar--${number}`;
-    let temp = '';
 
     if (number === 2) {
         className += ` bar--selected`;
-        temp = 86;
     }
 
     return (
         <div className={className}>
-            <Temp temp={temp} unit={'f'} />
+            <Temp temp={temp} unit={unit} />
         </div>
     );
 };
