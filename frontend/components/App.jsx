@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Bar from './Bar/Bar.jsx';
 import uuidv1 from 'uuid/v1';
-import { getPosition, range, units, isBetween, toFahrenheit } from '../lib/utils';
+import { getPosition, range, units, isBetween, toFahrenheit, match } from '../lib/utils';
 import { fetchWeather } from '../lib/api-client';
 import '@csstools/normalize.css';
 import './App.css';
@@ -51,34 +51,20 @@ class App extends Component {
   }
 
   temperatureIsInBar(temperature, barNumber) {
-      switch (barNumber) {
-        case 0:
-            return temperature >= 100;
-        case 1:
-            return isBetween(89, 100, temperature);
-        case 2:
-            return isBetween(79, 89, temperature);
-        case 3:
-            return isBetween(69, 79, temperature);
-        case 4:
-            return isBetween(59, 69, temperature);
-        case 5:
-            return isBetween(49, 59, temperature);
-        case 6:
-            return isBetween(39, 49, temperature);
-        case 7:
-            return isBetween(29, 39, temperature);
-        case 8:
-            return isBetween(19, 29, temperature);
-        case 9:
-            return isBetween(9, 19, temperature);
-        case 10:
-            return isBetween(-1, 9, temperature);
-        case 11:
-            return isBetween(-11, -1, temperature);
-        case 12:
-            return temperature < -11;
-      }
+      return match(barNumber)
+        .on(x => x === 0, () => temperature > 100)
+        .on(x => x === 1, () => isBetween(89, 100, temperature))
+        .on(x => x === 2, () => isBetween(79, 89, temperature))
+        .on(x => x === 3, () => isBetween(69, 79, temperature))
+        .on(x => x === 4, () => isBetween(59, 69, temperature))
+        .on(x => x === 5, () => isBetween(49, 59, temperature))
+        .on(x => x === 6, () => isBetween(39, 49, temperature))
+        .on(x => x === 7, () => isBetween(29, 39, temperature))
+        .on(x => x === 8, () => isBetween(19, 29, temperature))
+        .on(x => x === 9, () => isBetween(9, 19, temperature))
+        .on(x => x === 10, () => isBetween(-1, 9, temperature))
+        .on(x => x === 11, () => isBetween(-11, -1, temperature))
+        .otherwise(temperature < -11);
   }
 
   render() {

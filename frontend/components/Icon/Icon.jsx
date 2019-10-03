@@ -149,7 +149,7 @@ const Icon = ({weatherCode, size, color, className='', ...props}) => {
             .on(isCloudyCodeAndIsNight, () => <WiNightCloudy size={size} color={color} />)
             .otherwise(<WiAlien size={size} color={color} />)}
         </span>
-    )
+    );
 };
 
 export default Icon;
