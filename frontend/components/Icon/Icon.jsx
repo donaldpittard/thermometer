@@ -128,30 +128,26 @@ const isClearSkyCodeAndIsNight = code => !isClearSkyCodeAndIsDay(code);
 const isCloudyCodeAndIsDay = code => isCloudyCode(code) && isDayNow();
 const isCloudyCodeAndIsNight = code => !isCloudyCodeAndIsDay(code);
 
-const getIcon = (code, size, color) => {
-    return match(code)
-        .on(isThunderStormCode, () => <WiThunderstorm size={size} color={color} />)
-        .on(isHailCode, () => <WiHail size={size} color={color} />)
-        .on(isSprinkleCode, () => <WiSprinkle size={size} color={color} />)
-        .on(isRainCode, () => <WiRain size={size} color={color} />)
-        .on(isSnowCode, () => <WiSnow size={size} color={color} />)
-        .on(isRainMixCode, () => <WiRainMix size={size} color={color} />)
-        .on(isSleetCode, () => <WiSleet size={size} color={color} />)
-        .on(isDustCode, () => <WiDust size={size} color={color} />)
-        .on(isFogCode, () => <WiFog size={size} color={color} />)
-        .on(isSmokeCode, () => <WiSmoke size={size} color={color} />)
-        .on(isHazeCode, () => <WiDayHaze size={size} color={color} />)
-        .on(isClearSkyCodeAndIsDay, () => <WiDaySunny size={size} color={color} />)
-        .on(isClearSkyCodeAndIsNight, () => <WiNightClear size={size} color={color} />)
-        .on(isCloudyCodeAndIsDay, () => <WiDayCloudy size={size} color={color} />)
-        .on(isCloudyCodeAndIsNight, () => <WiNightCloudy size={size} color={color} />)
-        .otherwise(<WiAlien size={size} color={color} />);
-};
-
 const Icon = ({weatherCode, size, color, className='', ...props}) => {
     return (
         <span className={`icon ${className}`} {...props}>
-            {getIcon(weatherCode, size, color)}
+            {match(weatherCode)
+            .on(isThunderStormCode, () => <WiThunderstorm size={size} color={color} />)
+            .on(isHailCode, () => <WiHail size={size} color={color} />)
+            .on(isSprinkleCode, () => <WiSprinkle size={size} color={color} />)
+            .on(isRainCode, () => <WiRain size={size} color={color} />)
+            .on(isSnowCode, () => <WiSnow size={size} color={color} />)
+            .on(isRainMixCode, () => <WiRainMix size={size} color={color} />)
+            .on(isSleetCode, () => <WiSleet size={size} color={color} />)
+            .on(isDustCode, () => <WiDust size={size} color={color} />)
+            .on(isFogCode, () => <WiFog size={size} color={color} />)
+            .on(isSmokeCode, () => <WiSmoke size={size} color={color} />)
+            .on(isHazeCode, () => <WiDayHaze size={size} color={color} />)
+            .on(isClearSkyCodeAndIsDay, () => <WiDaySunny size={size} color={color} />)
+            .on(isClearSkyCodeAndIsNight, () => <WiNightClear size={size} color={color} />)
+            .on(isCloudyCodeAndIsDay, () => <WiDayCloudy size={size} color={color} />)
+            .on(isCloudyCodeAndIsNight, () => <WiNightCloudy size={size} color={color} />)
+            .otherwise(<WiAlien size={size} color={color} />)}
         </span>
     )
 };
