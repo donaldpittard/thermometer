@@ -5,7 +5,7 @@ import { getPosition, range, units, isBetween, toFahrenheit, match } from '../li
 import { fetchWeather } from '../lib/api-client';
 import '@csstools/normalize.css';
 import './App.css';
-import {ToastContainer, toast} from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Temperature from './Temperature/Temperature.jsx';
 import Icon from './Icon/Icon.jsx';
@@ -14,14 +14,21 @@ import Forecast from './Forecast/Forecast.jsx';
 
 class App extends Component {
   constructor(props) {
+    const numBars = 12;
     super(props);
+
+    this.handleSliderClick = this.handleSliderClick.bind(this);
 
     this.state = {
       temp: null,
-      numBars: 12,
+      numBars: numBars,
       unit: units.fahrenheit,
       weatherCode: null,
-      forecast: {}
+      forecast: {},
+      showForecast: false,
+      bars: range(numBars).map(num => {
+        return {key: uuidv1()}
+      })
     };
   }
 
@@ -32,7 +39,9 @@ class App extends Component {
   }
 
   handleSliderClick() {
-
+    this.setState({
+        showForecast: true
+    });
   }
 
   async componentDidMount() {
@@ -68,16 +77,21 @@ class App extends Component {
   }
 
   render() {
-    const bars = range(this.state.numBars).map(num => {
+    const bars = this.state.bars.map(({key}, index) => {
         const {temp, unit} = this.state;
         const isInBar = unit === units.celsius 
-            ? this.temperatureIsInBar(toFahrenheit(temp), num)
-            : this.temperatureIsInBar(temp, num);
+            ? this.temperatureIsInBar(toFahrenheit(temp), index)
+            : this.temperatureIsInBar(temp, index);
 
         return (
-            <Bar key={uuidv1()} number={num}>
+            <Bar
+                number={index}
+                hide={isInBar && this.state.showForecast} 
+                key={key}
+            >
                 {isInBar
-                    ? <React.Fragment>
+                    ? 
+                      <React.Fragment>
                         <Temperature 
                             temp={temp} 
                             unit={unit} 
@@ -90,8 +104,7 @@ class App extends Component {
                             color={'#FFFFFF'}
                         />
                         <SliderIcon onClick={this.handleSliderClick} />
-                        <Forecast {...this.state.forecast} />
-                    </React.Fragment>
+                      </React.Fragment>
                     : null}
             </Bar>
         );

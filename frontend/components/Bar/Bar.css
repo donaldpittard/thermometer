@@ -1,6 +1,12 @@
 .bar {
     height: 7.5%;
     width: 100%;
+    transition: width 2s;
+}
+
+.bar--slideout {
+    width: 0%;
+    overflow: hidden;
 }
 
 .bar--selected {

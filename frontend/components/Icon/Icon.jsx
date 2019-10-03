@@ -1,5 +1,5 @@
 import React from 'react';
-import { WiDaySunny, WiSprinkle, WiRain, WiThunderstorm, WiHail, WiSnow, WiRainMix, WiSleet, WiFog, WiDayHaze, WiDust, WiNightClear, WiDayCloudy, WiNightCloudy, WiAlien, WiSmoke, WiDayHail } from 'weather-icons-react';
+import { WiDaySunny, WiSprinkle, WiRain, WiThunderstorm, WiHail, WiSnow, WiRainMix, WiSleet, WiFog, WiDayHaze, WiDust, WiNightClear, WiDayCloudy, WiNightCloudy, WiAlien, WiSmoke, WiDayHail } from 'react-icons/wi';
 import './Icon.css';
 import {match} from '../../lib/utils';
 

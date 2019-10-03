@@ -1,3 +1,7 @@
 .forecast {
     background-image: "images/speckled-background.png";
 }
+
+.forecast--hidden {
+    display: none;
+}
