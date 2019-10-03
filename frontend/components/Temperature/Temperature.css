@@ -1,6 +1,13 @@
 .temp {
-    color: #FFF;
+    color: #FFFFFF;
+}
+
+.temp--large {
     font-size: 16em;
+}
+
+.temp--small {
+    font-size: 1em;
 }
 
 .temp__degree {

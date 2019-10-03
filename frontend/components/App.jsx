@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Temperature from './Temperature/Temperature.jsx';
 import Icon from './Icon/Icon.jsx';
 import SliderIcon from './SliderIcon/SliderIcon.jsx';
+import Forecast from './Forecast/Forecast.jsx';
 
 class App extends Component {
   constructor(props) {
@@ -19,7 +20,8 @@ class App extends Component {
       temp: null,
       numBars: 12,
       unit: units.fahrenheit,
-      weatherCode: null
+      weatherCode: null,
+      forecast: {}
     };
   }
 
@@ -30,7 +32,7 @@ class App extends Component {
   }
 
   handleSliderClick() {
-    alert('hey');
+
   }
 
   async componentDidMount() {
@@ -90,9 +92,19 @@ class App extends Component {
             <Bar key={uuidv1()} number={num}>
                 {isInBar
                     ? <React.Fragment>
-                        <Temperature temp={temp} unit={unit} />
-                        <Icon weatherCode={this.state.weatherCode} />
+                        <Temperature 
+                            temp={temp} 
+                            unit={unit} 
+                            className='temp--large' 
+                        />
+                        <Icon 
+                            weatherCode={this.state.weatherCode} 
+                            className='icon--large' 
+                            size={210}
+                            color={'#FFFFFF'}
+                        />
                         <SliderIcon onClick={this.handleSliderClick} />
+                        <Forecast {...this.state.forecast} />
                     </React.Fragment>
                     : null}
             </Bar>

@@ -18,3 +18,13 @@ export const units = {
 export const isBetween = (min, max, num) => min < num && num < max;
 
 export const toFahrenheit = celsiusTemp => parseInt((celsiusTemp * 9/5) + 32);
+
+export const matched = x => ({
+    on: () => matched(x),
+    otherwise: () => x
+});
+
+export const match = x => ({
+    on: (pred, fn) => (pred(x) ? matched(fn(x)) : match(x)),
+    otherwise: fn => fn(x)
+});
