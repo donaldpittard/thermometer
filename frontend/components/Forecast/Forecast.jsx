@@ -6,7 +6,8 @@ const Forecast = props => {
         <div 
             className={[
                 'forecast',
-                props.className
+                props.className,
+                props.show ? 'forecast--slidein' : 'forecast--slideout'  
             ].join(' ')}
         >
             FORECAST

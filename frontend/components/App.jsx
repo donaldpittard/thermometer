@@ -7,10 +7,8 @@ import '@csstools/normalize.css';
 import './App.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Temperature from './Temperature/Temperature.jsx';
-import Icon from './Icon/Icon.jsx';
-import SliderIcon from './SliderIcon/SliderIcon.jsx';
 import Forecast from './Forecast/Forecast.jsx';
+import MainTemperatureDisplay from './MainTemperatureDisplay/MainTemperatureDisplay.jsx';
 
 class App extends Component {
   constructor(props) {
@@ -86,25 +84,20 @@ class App extends Component {
         return (
             <Bar
                 number={index}
-                hide={isInBar && this.state.showForecast} 
                 key={key}
             >
                 {isInBar
                     ? 
-                      <React.Fragment>
-                        <Temperature 
+                    <React.Fragment>
+                        <MainTemperatureDisplay
                             temp={temp} 
                             unit={unit} 
-                            className='temp--large' 
+                            weatherCode={this.state.weatherCode}
+                            onSliderClick={this.handleSliderClick}
+                            show={!this.state.showForecast}
                         />
-                        <Icon 
-                            weatherCode={this.state.weatherCode} 
-                            className='icon--large' 
-                            size={210}
-                            color={'#FFFFFF'}
-                        />
-                        <SliderIcon onClick={this.handleSliderClick} />
-                      </React.Fragment>
+                        <Forecast show={this.state.showForecast} />
+                    </React.Fragment>
                     : null}
             </Bar>
         );

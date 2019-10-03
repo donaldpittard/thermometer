@@ -1,7 +1,11 @@
 .forecast {
     background-image: "images/speckled-background.png";
+    width: 0%;
+    transition: width 2s;
+    display: none;
 }
 
-.forecast--hidden {
-    display: none;
+.forecast--slidein {
+    width: 100%;
+    display: block;
 }
