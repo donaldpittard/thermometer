@@ -16,6 +16,7 @@ class App extends Component {
     super(props);
 
     this.handleSliderClick = this.handleSliderClick.bind(this);
+    this.handleForecastClick = this.handleForecastClick.bind(this);
 
     this.state = {
       temp: null,
@@ -74,6 +75,12 @@ class App extends Component {
         .otherwise(temperature < -11);
   }
 
+  handleForecastClick() {
+    this.setState({
+      showForecast: false
+    });
+  }
+
   render() {
     const bars = this.state.bars.map(({key}, index) => {
         const {temp, unit} = this.state;
@@ -96,7 +103,9 @@ class App extends Component {
                             onSliderClick={this.handleSliderClick}
                             show={!this.state.showForecast}
                         />
-                        <Forecast show={this.state.showForecast} />
+                        <Forecast 
+                          onClick={this.handleForecastClick}
+                          show={this.state.showForecast} />
                     </React.Fragment>
                     : null}
             </Bar>

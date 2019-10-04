@@ -1,11 +1,13 @@
 .forecast {
-    background-image: "images/speckled-background.png";
-    width: 0%;
-    transition: width 2s;
-    display: none;
+    background-image: url("/images/forecast-bg.png");
+    transition: all 2s;
+    transform: translate(100%, 0);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    height: 100%;
 }
 
 .forecast--slidein {
     width: 100%;
-    display: block;
+    transform:translate(0%, 0);
 }
