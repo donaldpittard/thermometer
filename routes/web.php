@@ -18,7 +18,7 @@ $router->get('/', function () use ($router) {
 $router->get('/api/weather/latitude/{latitude}/longitude/{longitude}/unit/{unit}', function ($latitude, $longitude, $unit) {
     return response()->json([
         'data' => [
-            'temp' => 86,
+            'temp' => 75,
             'code' => 200
         ],
     ]);
