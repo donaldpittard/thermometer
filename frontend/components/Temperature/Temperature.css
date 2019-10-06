@@ -14,3 +14,7 @@
 .temp--small {
     font-size: 1em;
 }
+
+.temp--dark {
+    color: #333333;
+}

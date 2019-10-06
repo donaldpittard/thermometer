@@ -18,15 +18,15 @@ const MainTemperatureDisplay = props => {
             <Temperature 
                 temp={props.temp} 
                 unit={props.unit} 
-                className='temp--large' 
+                className={props.dark ? 'temp--large temp--dark' : 'temp--large'} 
             />
             <Icon 
                 weatherCode={props.weatherCode} 
                 className='icon--large' 
                 size={210}
-                color={'#FFFFFF'}
+                color={props.dark ? '#333333' : '#FFFFFF'}
             />
-            <SliderIcon onClick={props.onSliderClick} />
+            <SliderIcon onClick={props.onSliderClick} dark={props.dark} />
         </div>
     );
 };

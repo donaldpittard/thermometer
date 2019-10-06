@@ -88,6 +88,7 @@ class App extends Component {
         const isInBar = unit === units.celsius 
             ? this.temperatureIsInBar(toFahrenheit(temp), index)
             : this.temperatureIsInBar(temp, index);
+        const isDark = index === 5 || index === 6 || index === 7;
 
         return (
             <Bar
@@ -103,6 +104,7 @@ class App extends Component {
                             weatherCode={this.state.weatherCode}
                             onSliderClick={this.handleSliderClick}
                             show={!this.state.showForecast}
+                            dark={isDark}
                         />
                         <Forecast 
                           onClick={this.handleForecastClick}

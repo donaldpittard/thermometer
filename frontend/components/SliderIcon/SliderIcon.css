@@ -1,5 +1,13 @@
 .slider-icon {
-    color: #FFFFFF;
     font-size: 10em;
     opacity: 0.5;
+}
+
+.slider-icon--light {
+    color: #FFFFFF;
+}
+
+.slider-icon--dark {
+    color: #333333;
+    opacity: 1;
 }
