@@ -23,7 +23,7 @@ class App extends Component {
       numBars: numBars,
       unit: units.fahrenheit,
       weatherCode: null,
-      forecast: {},
+      forecast: [],
       showForecast: false,
       bars: range(numBars).map(num => {
         return {key: uuidv1()}
@@ -50,7 +50,8 @@ class App extends Component {
 
         this.setState({
             temp: parseInt(weather.data.temp),
-            weatherCode: weather.data.code
+            weatherCode: weather.data.code,
+            forecast: weather.data.forecast
         });
     } catch (err) {
         this.handleError(err.message);
@@ -105,7 +106,9 @@ class App extends Component {
                         />
                         <Forecast 
                           onClick={this.handleForecastClick}
-                          show={this.state.showForecast} />
+                          show={this.state.showForecast} 
+                          forecast={this.state.forecast}
+                        />
                     </React.Fragment>
                     : null}
             </Bar>

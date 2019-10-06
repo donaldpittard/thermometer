@@ -18,8 +18,30 @@ $router->get('/', function () use ($router) {
 $router->get('/api/weather/latitude/{latitude}/longitude/{longitude}/unit/{unit}', function ($latitude, $longitude, $unit) {
     return response()->json([
         'data' => [
-            'temp' => 75,
-            'code' => 200
+            'temp'     => 75,
+            'code'     => 200,
+            'forecast' => [
+                [
+                    'day'  => 'Sunday',
+                    'temp' => 87,
+                    'code' => 301,
+                ],
+                [
+                    'day'  => 'Monday',
+                    'temp' => 72,
+                    'code' => 600,
+                ],
+                [
+                    'day'  => 'Tuesday',
+                    'temp' => 92,
+                    'code' => 800,
+                ],
+                [
+                    'day'  => 'Wednesday',
+                    'temp' => 68,
+                    'code' => 711,
+                ],
+            ],
         ],
     ]);
 });

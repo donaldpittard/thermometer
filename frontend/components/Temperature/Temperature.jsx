@@ -2,7 +2,7 @@ import React from 'react';
 import './Temperature.css';
 import {units} from '../../lib/utils';
 
-const Temperature = ({temp, className, unit=units.fahrenheit, ...props}) => {
+const Temperature = ({temp, unit=units.fahrenheit, className='', ...props}) => {
     if (temp === null) {
         return '';
     }

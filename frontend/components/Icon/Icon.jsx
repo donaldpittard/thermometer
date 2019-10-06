@@ -122,7 +122,11 @@ const isCloudyCode = codeCheckFactory([
     codes.overcastClouds,
 ]);
 
-const isDayNow = () => (new Date()).getHours() >= 6 && hour <= 18;
+const isDayNow = () => {
+    const hour = (new Date()).getHours();
+    
+    return hour >= 6 && hour <= 18;
+}
 const isClearSkyCodeAndIsDay = code => isClearSkyCode(code) && isDayNow();
 const isClearSkyCodeAndIsNight = code => !isClearSkyCodeAndIsDay(code);
 const isCloudyCodeAndIsDay = code => isCloudyCode(code) && isDayNow();
