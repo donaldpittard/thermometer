@@ -12,7 +12,7 @@ const Forecast = props => {
                 props.show ? 'forecast--slidein' : 'forecast--slideout'  
             ].join(' ')}
         >
-            {props.forecast.map(forecast => <ForecastDay key={forecast.day} {...forecast} />)}
+            {props.forecast.map(forecast => <ForecastDay key={forecast.day} unit={props.unit} {...forecast} />)}
         </div>
     );
 };

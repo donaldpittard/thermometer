@@ -108,6 +108,7 @@ class App extends Component {
                           onClick={this.handleForecastClick}
                           show={this.state.showForecast} 
                           forecast={this.state.forecast}
+                          unit={unit}
                         />
                     </React.Fragment>
                     : null}
