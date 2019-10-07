@@ -1,5 +1,7 @@
 import React from 'react';
-import { WiDaySunny, WiSprinkle, WiRain, WiThunderstorm, WiHail, WiSnow, WiRainMix, WiSleet, WiFog, WiDayHaze, WiDust, WiNightClear, WiDayCloudy, WiNightCloudy, WiAlien, WiSmoke } from 'weather-icons-react';
+import { WiDaySunny, WiSprinkle, WiRain, WiThunderstorm, WiHail, WiSnow, WiRainMix, WiSleet, WiFog, WiDayHaze, WiDust, WiNightClear, WiDayCloudy, WiNightCloudy, WiAlien, WiSmoke, WiDayHail } from 'react-icons/wi';
+import './Icon.css';
+import {match} from '../../lib/utils';
 
 const codes = {
     thunderStormWithLightRain: 200,
@@ -38,93 +40,120 @@ const codes = {
     fewClouds: 801,
     scatteredClouds: 802,
     brokenClouds: 803,
-    overcaseClouds: 804,
+    overcastClouds: 804,
     unknownPrecipitation: 900
 };
 
-const isDay = hour => hour >= 6 && hour <= 18;
+const codeCheckFactory = codes => code => codes.includes(code);
 
-const getIcon = (weatherCode) => {
-    const size = 210;
-    const color = '#FFFFFF';
-    const now = (new Date()).getHours();
+const isThunderStormCode = codeCheckFactory([
+    codes.thunderStormWithLightRain,
+    codes.thunderStormWithRain,
+    codes.thunderStormWithHeavyRain,
+    codes.thunderStormWithLightDrizzle,
+    codes.thunderStormWithDrizzle,
+    codes.thunderStormWithHeavyDrizzle,
+]); 
 
-    switch (weatherCode) {
-        case codes.thunderStormWithLightRain:
-        case codes.thunderStormWithDrizzle:
-        case codes.thunderStormWithRain:
-        case codes.thunderStormWithHeavyRain:
-        case codes.thunderStormWithLightDrizzle:
-        case codes.thunderStormWithDrizzle:
-        case codes.thunderStormWithHeavyDrizzle:
-            return <WiThunderstorm size={size} color={color} />;
-        case codes.thunderStormWithHail:
-            return <WiHail size={size} color={color} />;
-        case codes.drizzle:
-        case codes.heavyDrizzle:
-        case codes.lightDrizzle:
-            return <WiSprinkle size={size} color={color} />;
-        case codes.moderateRain:
-        case codes.heavyRain:
-        case codes.lightRain:
-        case codes.freezingRain:
-        case codes.lightShowerRain:
-        case codes.showerRain:
-        case codes.heavyShowerRain:
-            return <WiRain size={size} color={color} />;
-        case codes.snow:
-        case codes.heavySnow:
-        case codes.lightSnow:
-            return <WiSnow size={size} color={color} />;
-        case codes.mixSnowRain:
-            return <WiRainMix size={size} color={color} />;
-        case codes.sleet:
-        case codes.heavySleet:
-        case codes.snowShower:
-        case codes.heavySnowShower:
-            return <WiSleet size={size} color={color} />;
-        case codes.sandDust:
-            return <WiDust size={size} color={color} />;
-        case codes.flurries:
-            return <WiSnow size={size} color={color} />;
-        case codes.mist:
-            return <WiFog size={size} color={color} />;
-        case codes.smoke:
-            return <WiSmoke size={size} color={color} />;
-        case codes.haze:
-            return <WiDayHaze size={size} color={color} />;
-        case codes.sandDuse:
-            return <WiDust size={size} color={color} />;
-        case codes.fog:
-            return <WiFog size={size} color={color} />;
-        case codes.freezingFog:
-            return <WiFog size={size} color={color} />;
-        case codes.clearSky:
-            if (isDay(now)) {
-                return <WiDaySunny size={size} color={color} />
-            } else {
-                return <WiNightClear size={size} color={color} />
-            }
-        case codes.fewClouds:
-        case codes.scatteredClouds:
-        case codes.brokenClouds:
-        case codes.overcaseClouds:
-            if (isDay(now)) {
-                return <WiDayCloudy size={size} color={color} />
-            } else {
-                return <WiNightCloudy size={size} color={color} />
-            }
-        case codes.unknownPrecipitation:
-            return <WiAlien size={size} color={color} />
-    }
-};
+const isHailCode = codeCheckFactory([
+    codes.thunderStormWithHail
+]); 
 
-const Icon = ({weatherCode}) => {
+const isSprinkleCode = codeCheckFactory([
+    codes.lightDrizzle,
+    codes.drizzle,
+    codes.heavyDrizzle
+]);
+
+const isRainCode = codeCheckFactory([
+    codes.moderateRain,
+    codes.heavyRain,
+    codes.lightRain,
+    codes.freezingRain,
+    codes.lightShowerRain,
+    codes.showerRain,
+    codes.heavyShowerRain,
+]);
+
+const isSnowCode = codeCheckFactory([
+    codes.snow,
+    codes.heavySnowsnow,
+    codes.lightSnowsnow,
+    codes.flurries,
+]);
+
+const isRainMixCode = codeCheckFactory([
+    codes.mixSnowRain,
+]);
+
+const isSleetCode = codeCheckFactory([
+    codes.sleet,
+    codes.heavySleet,
+    codes.snowShower,
+    codes.heavySnowShower,
+]);
+
+const isDustCode = codeCheckFactory([
+    codes.sandDust,
+]);
+
+const isFogCode = codeCheckFactory([
+    codes.mist,
+    codes.fog,
+    codes.freezingFog,
+]);
+
+const isSmokeCode = codeCheckFactory([
+    codes.smoke,
+]);
+
+const isHazeCode = codeCheckFactory([
+    codes.haze,
+]);
+
+const isClearSkyCode = codeCheckFactory([
+    codes.clearSky,
+]);
+
+const isCloudyCode = codeCheckFactory([
+    codes.fewClouds,
+    codes.scatteredClouds,
+    codes.brokenClouds,
+    codes.overcastClouds,
+]);
+
+const isDayNow = () => {
+    const hour = (new Date()).getHours();
+    
+    return hour >= 6 && hour <= 18;
+}
+const isClearSkyCodeAndIsDay = code => isClearSkyCode(code) && isDayNow();
+const isClearSkyCodeAndIsNight = code => !isClearSkyCodeAndIsDay(code);
+const isCloudyCodeAndIsDay = code => isCloudyCode(code) && isDayNow();
+const isCloudyCodeAndIsNight = code => !isCloudyCodeAndIsDay(code);
+
+const Icon = ({weatherCode, size, color, className='', ...props}) => {
     return (
-        <span className="weather-code">
-            {getIcon(weatherCode)}
+        <span className={`icon ${className}`} {...props}>
+            {match(weatherCode)
+            .on(isThunderStormCode, () => <WiThunderstorm size={size} color={color} />)
+            .on(isHailCode, () => <WiHail size={size} color={color} />)
+            .on(isSprinkleCode, () => <WiSprinkle size={size} color={color} />)
+            .on(isRainCode, () => <WiRain size={size} color={color} />)
+            .on(isSnowCode, () => <WiSnow size={size} color={color} />)
+            .on(isRainMixCode, () => <WiRainMix size={size} color={color} />)
+            .on(isSleetCode, () => <WiSleet size={size} color={color} />)
+            .on(isDustCode, () => <WiDust size={size} color={color} />)
+            .on(isFogCode, () => <WiFog size={size} color={color} />)
+            .on(isSmokeCode, () => <WiSmoke size={size} color={color} />)
+            .on(isHazeCode, () => <WiDayHaze size={size} color={color} />)
+            .on(isClearSkyCodeAndIsDay, () => <WiDaySunny size={size} color={color} />)
+            .on(isClearSkyCodeAndIsNight, () => <WiNightClear size={size} color={color} />)
+            .on(isCloudyCodeAndIsDay, () => <WiDayCloudy size={size} color={color} />)
+            .on(isCloudyCodeAndIsNight, () => <WiNightCloudy size={size} color={color} />)
+            .otherwise(<WiAlien size={size} color={color} />)}
         </span>
-    )
+    );
 };
 
 export default Icon;

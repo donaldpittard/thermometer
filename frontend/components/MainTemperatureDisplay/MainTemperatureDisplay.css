@@ -1,0 +1,9 @@
+.main-temp-display {
+    width: 100%;
+    transition: all 2s ease;
+    position: absolute;
+}
+
+.main-temp-display--slideout {
+    transform: translate(-100%, 0);
+}

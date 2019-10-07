@@ -1,10 +1,20 @@
 .temp {
-    color: #FFF;
-    font-size: 16em;
-    padding-left: 10%;
+    color: #FFFFFF;
 }
 
-.temp__degree {
+.temp--large {
+    font-size: 16em;
+}
+
+.temp--large .temp__degree {
     vertical-align: super;
     font-size: 100px;
+}
+
+.temp--small {
+    font-size: 1em;
+}
+
+.temp--dark {
+    color: #333333;
 }

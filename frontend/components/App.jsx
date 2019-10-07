@@ -1,30 +1,45 @@
 import React, { Component } from 'react';
 import Bar from './Bar/Bar.jsx';
 import uuidv1 from 'uuid/v1';
-import { getPosition, range, units, isBetween, toFahrenheit } from '../lib/utils';
+import { getPosition, range, units, isBetween, toFahrenheit, match } from '../lib/utils';
 import { fetchWeather } from '../lib/api-client';
 import '@csstools/normalize.css';
 import './App.css';
-import {ToastContainer, toast} from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Temperature from './Temperature/Temperature.jsx';
-import Icon from './Icon/Icon.jsx';
+import Forecast from './Forecast/Forecast.jsx';
+import MainTemperatureDisplay from './MainTemperatureDisplay/MainTemperatureDisplay.jsx';
 
 class App extends Component {
   constructor(props) {
+    const numBars = 12;
     super(props);
+
+    this.handleSliderClick = this.handleSliderClick.bind(this);
+    this.handleForecastClick = this.handleForecastClick.bind(this);
 
     this.state = {
       temp: null,
-      numBars: 12,
+      numBars: numBars,
       unit: units.fahrenheit,
-      weatherCode: null
+      weatherCode: null,
+      forecast: [],
+      showForecast: false,
+      bars: range(numBars).map(num => {
+        return {key: uuidv1()}
+      })
     };
   }
 
   handleError(err='An error has occurred') {
     toast.error(err, {
         position: toast.POSITION.TOP_CENTER
+    });
+  }
+
+  handleSliderClick() {
+    this.setState({
+        showForecast: true
     });
   }
 
@@ -35,7 +50,8 @@ class App extends Component {
 
         this.setState({
             temp: parseInt(weather.data.temp),
-            weatherCode: weather.data.code
+            weatherCode: weather.data.code,
+            forecast: weather.data.forecast
         });
     } catch (err) {
         this.handleError(err.message);
@@ -44,49 +60,58 @@ class App extends Component {
   }
 
   temperatureIsInBar(temperature, barNumber) {
-      switch (barNumber) {
-        case 0:
-            return temperature >= 100;
-        case 1:
-            return isBetween(89, 100, temperature);
-        case 2:
-            return isBetween(79, 89, temperature);
-        case 3:
-            return isBetween(69, 79, temperature);
-        case 4:
-            return isBetween(59, 69, temperature);
-        case 5:
-            return isBetween(49, 59, temperature);
-        case 6:
-            return isBetween(39, 49, temperature);
-        case 7:
-            return isBetween(29, 39, temperature);
-        case 8:
-            return isBetween(19, 29, temperature);
-        case 9:
-            return isBetween(9, 19, temperature);
-        case 10:
-            return isBetween(-1, 9, temperature);
-        case 11:
-            return isBetween(-11, -1, temperature);
-        case 12:
-            return temperature < -11;
-      }
+      return match(barNumber)
+        .on(x => x === 0, () => temperature > 100)
+        .on(x => x === 1, () => isBetween(89, 100, temperature))
+        .on(x => x === 2, () => isBetween(79, 89, temperature))
+        .on(x => x === 3, () => isBetween(69, 79, temperature))
+        .on(x => x === 4, () => isBetween(59, 69, temperature))
+        .on(x => x === 5, () => isBetween(49, 59, temperature))
+        .on(x => x === 6, () => isBetween(39, 49, temperature))
+        .on(x => x === 7, () => isBetween(29, 39, temperature))
+        .on(x => x === 8, () => isBetween(19, 29, temperature))
+        .on(x => x === 9, () => isBetween(9, 19, temperature))
+        .on(x => x === 10, () => isBetween(-1, 9, temperature))
+        .on(x => x === 11, () => isBetween(-11, -1, temperature))
+        .otherwise(temperature < -11);
+  }
+
+  handleForecastClick() {
+    this.setState({
+      showForecast: false
+    });
   }
 
   render() {
-    const bars = range(this.state.numBars).map(num => {
+    const bars = this.state.bars.map(({key}, index) => {
         const {temp, unit} = this.state;
         const isInBar = unit === units.celsius 
-            ? this.temperatureIsInBar(toFahrenheit(temp), num)
-            : this.temperatureIsInBar(temp, num);
+            ? this.temperatureIsInBar(toFahrenheit(temp), index)
+            : this.temperatureIsInBar(temp, index);
+        const isDark = index === 5 || index === 6 || index === 7;
 
         return (
-            <Bar key={uuidv1()} number={num}>
+            <Bar
+                number={index}
+                key={key}
+            >
                 {isInBar
-                    ? <React.Fragment>
-                        <Temperature temp={temp} unit={unit} />
-                        <Icon weatherCode={this.state.weatherCode} />
+                    ? 
+                    <React.Fragment>
+                        <MainTemperatureDisplay
+                            temp={temp} 
+                            unit={unit} 
+                            weatherCode={this.state.weatherCode}
+                            onSliderClick={this.handleSliderClick}
+                            show={!this.state.showForecast}
+                            dark={isDark}
+                        />
+                        <Forecast 
+                          onClick={this.handleForecastClick}
+                          show={this.state.showForecast} 
+                          forecast={this.state.forecast}
+                          unit={unit}
+                        />
                     </React.Fragment>
                     : null}
             </Bar>
